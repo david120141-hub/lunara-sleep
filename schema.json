@@ -1,0 +1,24 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Lunara Sleep Ergonomic Memory Foam Pillow",
+  "description": "An ergonomically contoured memory foam pillow designed to support natural head and neck alignment across every sleep position.",
+  "brand": {
+    "@type": "Brand",
+    "name": "Lunara Sleep"
+  },
+  "image": [
+    "https://www.lunarasleep.com/assets/hero-loop-poster.jpg",
+    "https://www.lunarasleep.com/assets/pos-back.jpg",
+    "https://www.lunarasleep.com/assets/pos-side.jpg"
+  ],
+  "offers": {
+    "@type": "AggregateOffer",
+    "priceCurrency": "USD",
+    "lowPrice": "49.99",
+    "highPrice": "64.95",
+    "offerCount": "4",
+    "url": "https://www.coralstate.com/36LJDMN5/22SJB3TJ/"
+  },
+  "_note": "aggregateRating was intentionally omitted — add it only once real, verified review data exists for Lunara Sleep specifically. Publishing placeholder or unverified rating structured data can trigger manual actions from Google and misleads shoppers in search results."
+}
