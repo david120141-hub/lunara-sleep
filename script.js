@@ -74,4 +74,76 @@
   } else {
     revealEls.forEach((el) => el.classList.add('is-visible'));
   }
+
+  /* ----------------------------------------------------------
+     GCLID Capture & SmartADV Sub3 Tracking (90-day retention)
+     ---------------------------------------------------------- */
+  const GCLID_STORAGE_KEY = 'lunara_gclid';
+  const COOKIE_RETENTION_DAYS = 90;
+
+  function setGclidCookie(name, value, days) {
+    const expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax`;
+  }
+
+  function getGclidCookie(name) {
+    const nameEQ = name + '=';
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+    }
+    return null;
+  }
+
+  function getOrCaptureGclid() {
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const gclidFromUrl = urlParams.get('gclid');
+      if (gclidFromUrl) {
+        try {
+          localStorage.setItem(GCLID_STORAGE_KEY, gclidFromUrl);
+        } catch (e) {}
+        setGclidCookie(GCLID_STORAGE_KEY, gclidFromUrl, COOKIE_RETENTION_DAYS);
+        return gclidFromUrl;
+      }
+    } catch (e) {}
+
+    try {
+      const gclidFromLocal = localStorage.getItem(GCLID_STORAGE_KEY);
+      if (gclidFromLocal) return gclidFromLocal;
+    } catch (e) {}
+
+    return getGclidCookie(GCLID_STORAGE_KEY);
+  }
+
+  function applyGclidToSmartAdvLinks() {
+    const gclid = getOrCaptureGclid();
+    if (!gclid) return;
+
+    const ctaSelector = 'a[href*="coralstate.com/36LJDMN5/22SJB3TJ"]';
+    const ctaLinks = document.querySelectorAll(ctaSelector);
+
+    ctaLinks.forEach((link) => {
+      try {
+        const url = new URL(link.href, window.location.origin);
+        url.searchParams.set('sub3', gclid);
+        link.href = url.toString();
+      } catch (e) {}
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyGclidToSmartAdvLinks);
+  } else {
+    applyGclidToSmartAdvLinks();
+  }
+
+  document.addEventListener('click', (e) => {
+    const targetLink = e.target.closest('a[href*="coralstate.com/36LJDMN5/22SJB3TJ"]');
+    if (targetLink) {
+      applyGclidToSmartAdvLinks();
+    }
+  }, true);
 })();
