@@ -28,7 +28,7 @@
       const autoTimer = setTimeout(() => {
         hideIntro();
         document.body.style.overflow = '';
-      }, 2600);
+      }, 1200);
 
       const dismissEarly = () => {
         clearTimeout(autoTimer);

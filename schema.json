@@ -8,9 +8,9 @@
     "name": "Lunara Sleep"
   },
   "image": [
-    "https://www.lunarasleep.com/assets/hero-loop-poster.jpg",
-    "https://www.lunarasleep.com/assets/pos-back.jpg",
-    "https://www.lunarasleep.com/assets/pos-side.jpg"
+    "https://lunaraslp.com/assets/hero-loop-poster.jpg",
+    "https://lunaraslp.com/assets/pos-back.jpg",
+    "https://lunaraslp.com/assets/pos-side.jpg"
   ],
   "offers": {
     "@type": "AggregateOffer",
